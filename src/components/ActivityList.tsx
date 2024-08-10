@@ -1,8 +1,8 @@
-import { Activity } from "./types";
+import { Activity } from "../types";
 import type { Dispatch } from "react";
-import { categories } from "./data/categories";
+import { categories } from "../data/categories";
 import { useMemo } from "react";
-import { ActivityActions } from "./reducers/activity-reducer";
+import { ActivityActions } from "../reducers/activity-reducer";
 import { PencilSquareIcon, XCircleIcon } from "@heroicons/react/24/outline";
 
 type ActivityListProps = {
