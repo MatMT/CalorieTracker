@@ -1,14 +1,9 @@
-import type { ChangeEvent, Dispatch, FormEvent } from "react";
+import type { ChangeEvent, FormEvent } from "react";
 import { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { categories } from "../data/categories";
 import type { Activity } from "../types";
-import { ActivityActions, ActivityState } from "../reducers/activity-reducer";
-
-type FormProps = {
-  dispatch: Dispatch<ActivityActions>;
-  state: ActivityState;
-};
+import { useActivity } from "../hooks/useActivity";
 
 const initialState: Activity = {
   id: uuidv4(),
@@ -17,7 +12,8 @@ const initialState: Activity = {
   calories: 0,
 };
 
-export default function Form({ dispatch, state }: FormProps) {
+export default function Form() {
+  const {state, dispatch} = useActivity();
   const [activity, setActivity] = useState<Activity>(initialState);
 
   useEffect(() => {
@@ -63,7 +59,7 @@ export default function Form({ dispatch, state }: FormProps) {
       onSubmit={handleSubmit}
     >
       <div className="grid grid-cols-1 gap-3">
-        <label htmlFor="category">Categoría:</label>
+        <label htmlFor="category" className="font-bold">Categoría:</label>
         <select
           id="category"
           className="border border-slate-300 rounded-lg w-full p-2 bg-white"
@@ -80,7 +76,7 @@ export default function Form({ dispatch, state }: FormProps) {
 
       <div className="grid grid-cols-1 gap-3">
         <label htmlFor="name" className="font-bold">
-          Actividad:
+        {activity.category === 1 ? "Comida" : "Actividad"}:
         </label>
         <input
           type="text"
